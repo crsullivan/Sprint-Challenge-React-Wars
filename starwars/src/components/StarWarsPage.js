@@ -1,6 +1,13 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import {StarWarsCard} from "./StarWarsCard"
+import StarWarsCard from "./StarWarsCard"
+import styled from "styled-components";
+
+const ContainerMain = styled.div `
+display:flex;
+flex-wrap: wrap;
+justify-content:space-evenly;
+`
 
 export default function StarWarsPage () {
     const [names, setNames] = useState ([])
@@ -10,7 +17,7 @@ export default function StarWarsPage () {
         .get(`https://swapi.co/api/people/`)
         .then(response => {
             const names = response.data.results;
-            setNames([names])
+            setNames(names)
             console.log(names);
             console.log(names[0].name);
         })
@@ -20,28 +27,55 @@ export default function StarWarsPage () {
     },[]);
 
     return (
+        <div>
+          <ContainerMain>
+    
+            {names.map((data, index )=> {
+                return (
+                <StarWarsCard key={index} name={data.name} height={data.height} mass={data.mass} gender={data.gender} birth_year={data.birth_year}
+                hair_color={data.hair_color} skin_color={data.skin_color} eye_color={data.eye_color}/>
+        
+                 ) }
+            )}
+          </ContainerMain>
+        </div>
+      );
+    };
 
-         <div className="containers">
-            {names.forEach(index =>   {
-                index.map((data, index) => {
+
+
+
+
+
+
+
+
+
+
+
+    //     return (
+
+//          <div className="containers">
+
+//                 {names.map((data, index) => {
                    
-                    console.log(data)
-                   console.log(data.name)
+//                     console.log(data)
+//                    console.log(data.names)
                        
                     
     
-                return (
-                    <React.Fragment>
-                    <StarWarsCard 
-                    key={index}
-                    name={data.name}
+//                 return (
+                    
+//                     <StarWarsCard 
+//                     key={index}
+//                     name={data.name}
                    
-                    /> 
-                    </React.Fragment>
-                ) 
-                })
-                
-            })}
-        </div>
-    )
-}
+//                     /> 
+                   
+//                 ) 
+//                 })
+            
+//             }
+//         </div>
+//     )
+// }
